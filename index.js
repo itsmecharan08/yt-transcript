@@ -1,7 +1,7 @@
 const youtubeTranscript = require('youtube-transcript-api');
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-
+require('dotenv').config();
 async function fetchYouTubeTranscript(videoUrl) {
     try {
         let videoId;
@@ -23,7 +23,7 @@ async function fetchYouTubeTranscript(videoUrl) {
         const paragraphs = combineTranscriptIntoParagraphs(transcriptData);
         
         
-        const genAI = new GoogleGenerativeAI('AIzaSyC5lijzxdag0jtWlNib0ZlIrU6lixcH4zU');
+        const genAI = new GoogleGenerativeAI(process.env.API_KEY);
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
         const prompt = `generate suitable image of given paragraph${paragraphs.join(' ')}`;
